@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;1,200;1,400&display=swap');
+
+        body{
+            background-color: black; color: white; font-family: 'Source Sans Pro', sans-serif;
+            overflow-x: hidden;
+            width: 100%;
+            margin: 0;
+            overflow-x: hidden;
+        }
+/* 
+        h1{
+            color: green;
+        } */
+
+        @media (max-width: 768px) {
+          .title{ 
+            max-width: 100%;
+          }
+        }
+
+        .bg-video{
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            top: 0%;
+            left: 0%;
+            object-fit: cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .title{ 
+            text-align: center;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+            max-width: 100%;
+            transition: all 1s cubic-bezier(.215, .61, .355, 1);
+        }
+
+        .sections{ 
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+            width: 100%;
+        }
+
+        section{
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            z-index: 1;
+            scroll-snap-align: start;
+        }
+
+        /* section.in-page{ 
+            color: red;
+        } */
+
+        section.in-page .title{ 
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        a{ 
+          color: white;
+          border-radius: 25%;
+          text-decoration: none;
+        }
+
+        .rainbow, a:hover{ 
+          text-align: center;
+          text-decoration: none;
+          animation: rgbColor 8s linear 0s infinite;
+        }
+
+
+        @keyframes rgbColor {
+          from {
+            color: #6666ff;
+          }
+          10% {
+            color: #0099ff;
+          }
+
+          25%{
+            color: #2ec52e ;
+          }
+
+          50% {
+            color: #1d781d;
+          }
+          75% {
+            color: #b42446;
+          }
+          100% {
+            color: #6666ff;
+          }
+        }
+
+        .arrow{
+            top: 60%;
+            left: 50%;
+            display: none;
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            border-bottom: 5px solid #807d7da8;
+            border-right: 5px solid #807d7da8;
+            transform: rotate(45deg);
+            margin: -10px;
+            animation: animateArrow 2s infinite;
+        }
+        .arrow span:nth-child(2){
+            animation-delay: -0.2s;
+        }
+        .arrow span:nth-child(3){
+            animation-delay: -0.4s;
+        }
+        @keyframes animateArrow {
+            0%{
+                opacity: 0;
+                transform: rotate(45deg) translate(-20px,-20px);
+            }
+            50%{
+                opacity: 1;
+            }
+            100%{
+                opacity: 0;
+                transform: rotate(45deg) translate(20px,20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- background video -->
+    <video class="bg-video" src="video.mp4" autoplay muted loop></video>
+
+    <div class="sections">
+          <!-- Contents -->
+      <section class="watch">
+        <h1 class="title rainbow">Benvenuto.</h1>
+      </section>
+
+      <section class="watch">
+        <h2 class="title">Cosa ti rende felice?</h2>
+      </section>
+
+      <section class="watch">
+        <h3 class="title">Credi di saperlo.</h3>
+      </section>
+
+      <section class="watch">
+        <h3 class="title">Io ti dirò cosa ti rende felice.</h3>
+      </section>
+
+      <section class="watch">
+        <h3 class="title">Il successo nelle cose che ami di più fare.</h3>
+      </section>
+
+      <!-- call to action section / ending -->
+      <section class="watch">
+        <h3 class="title in-page">
+          Puoi farlo, ora  
+          <a href="https://www.linkedin.com/in/michaeltorresdeveloper/"> 
+              <i>&nbsp Toccami.</i>
+          </a>
+        </h3>
+      </section>
+    </div>
+
+          <!-- Arrows -->
+          <div class="arrow watch">
+            <span></span>
+          </div>
+    
+    <script>
+
+        // elements
+        let elements_to_watch = document.querySelectorAll('.watch');
+        // callback 
+        let callback = function(items){
+          items.forEach((item) => {
+            if(item.isIntersecting){
+              item.target.classList.add("in-page");
+            } else{
+              item.target.classList.remove("in-page");
+            }
+          });
+        }
+        // // observer
+        // const observer = new IntersectionObserver(callback, { threshold: 0.1 } );
+        // // apply
+        // elements_to_watch.forEach((element) => {
+        //   observer.observe(element); 
+        // });
+        
+        //when arrow show up
+        setTimeout(function(){
+          document.querySelector('.arrow').style.display = "block";
+        }, 5000);
+        setTimeout(function(){
+          document.querySelector('.arrow').style.display = "none";
+        }, 12000);
+    </script>
+</body>
+</html>
